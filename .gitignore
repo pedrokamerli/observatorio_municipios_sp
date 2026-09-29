@@ -1,0 +1,25 @@
+# PyCharm
+.idea/
+
+# Virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Dados brutos
+data/raw/*
+!data/raw/.gitkeep
+
+# Dados processados
+data/processed/*
+!data/processed/.gitkeep
+
+# Sistema
+.DS_Store
+Thumbs.db
