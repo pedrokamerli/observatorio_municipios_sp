@@ -1,37 +1,28 @@
 # Observatório dos Municípios Paulistas
 
-Projeto de Ciência de Dados desenvolvido como parte do meu processo de formação em Ciência de Dados, utilizando dados públicos oficiais para analisar características econômicas e do mercado de trabalho dos municípios do estado de São Paulo.
+Projeto de Ciência de Dados desenvolvido para analisar a dinâmica econômica e do mercado de trabalho dos municípios do Estado de São Paulo.
 
-O projeto utiliza a metodologia **CRISP-DM (Cross-Industry Standard Process for Data Mining)** para organizar todas as etapas, desde a definição do problema até a análise, modelagem e apresentação dos resultados.
-
----
-
-## Objetivo do projeto
-
-O objetivo principal é investigar quais características econômicas, populacionais e setoriais estão associadas à geração de empregos formais nos municípios paulistas.
-
-Além da análise dos dados, o projeto também tem como objetivo desenvolver e demonstrar competências práticas em:
-
-* Python
-* Pandas
-* consumo de APIs
-* manipulação e limpeza de dados
-* integração de diferentes bases públicas
-* análise exploratória de dados
-* estatística aplicada
-* visualização de dados
-* feature engineering
-* Machine Learning
-* Git e GitHub
-* documentação de projetos de dados
+O projeto utiliza dados públicos oficiais, construção de pipelines de dados, análise exploratória, engenharia de atributos e Machine Learning, seguindo a metodologia CRISP-DM.
 
 ---
 
-# Metodologia
+## Objetivo
 
-O projeto será desenvolvido utilizando a metodologia **CRISP-DM**.
+Investigar quais características econômicas dos municípios paulistas estão associadas à geração de empregos formais e explorar a capacidade de modelos de Machine Learning de estimar a evolução do saldo de empregos.
 
-As etapas são:
+Entre as perguntas estudadas estão:
+
+- Como PIB, PIB per capita e porte municipal se relacionam com a geração de empregos?
+- Municípios pequenos e grandes apresentam comportamentos diferentes?
+- O tamanho econômico explica o saldo absoluto de empregos?
+- É possível prever o saldo de empregos do ano seguinte?
+- A dinâmica anterior do mercado de trabalho ajuda a prever sua evolução futura?
+
+---
+
+## Metodologia
+
+O projeto segue a metodologia CRISP-DM:
 
 1. Business Understanding
 2. Data Understanding
@@ -40,169 +31,61 @@ As etapas são:
 5. Evaluation
 6. Deployment
 
-O desenvolvimento será iterativo, permitindo retornar a etapas anteriores sempre que novas descobertas nos dados exigirem ajustes.
+Atualmente o projeto encontra-se nas etapas de modelagem e avaliação.
 
 ---
 
-# 1. Business Understanding
-
-## Problema
-
-Os municípios do estado de São Paulo apresentam diferenças significativas em população, estrutura econômica, renda, atividade industrial, serviços e geração de empregos.
-
-A proposta deste projeto é utilizar dados públicos para investigar essas diferenças e identificar quais características estão relacionadas ao desempenho do mercado de trabalho municipal.
-
----
-
-## Pergunta principal
-
-**Quais características econômicas e populacionais estão associadas à geração de empregos formais nos municípios do estado de São Paulo?**
-
----
-
-## Perguntas analíticas
-
-Durante o projeto serão investigadas perguntas como:
-
-* Quais municípios mais geram empregos formais?
-* Quais municípios apresentam maior geração de empregos proporcionalmente à população?
-* Municípios com maior PIB per capita apresentam maior geração de empregos?
-* Existe relação entre participação da indústria e geração de emprego?
-* Municípios predominantemente voltados para serviços apresentam comportamento diferente dos municípios industriais?
-* Quais municípios apresentam resultados muito acima ou abaixo do esperado?
-* Existem grupos de municípios com características econômicas semelhantes?
-* Como Bauru se posiciona em relação aos demais municípios paulistas?
-
----
-
-## Escopo inicial
-
-O projeto será iniciado utilizando dados dos municípios do estado de São Paulo.
-
-A unidade principal de análise será:
-
-**Município + Ano**
-
-O código oficial do município fornecido pelo IBGE será utilizado como chave para integração das diferentes bases de dados.
-
----
-
-## Fontes de dados previstas
-
-As principais fontes públicas que poderão ser utilizadas são:
+## Fontes de dados
 
 ### IBGE
 
-Dados relacionados a:
+Dados utilizados:
 
-* municípios
-* população
-* PIB
-* PIB per capita
-* composição econômica
-* indústria
-* serviços
-* agropecuária
+- municípios do Estado de São Paulo;
+- Produto Interno Bruto municipal;
+- PIB per capita;
+- Valor Adicionado Bruto por atividade econômica;
+- população do Censo 2022.
+
+A base de PIB disponível utilizada no projeto possui informações de 2010 a 2023.
+
+Para 2022 e 2023, os componentes setoriais de Valor Adicionado Bruto não estão disponíveis na mesma publicação utilizada, portanto não são imputados artificialmente.
 
 ### Novo CAGED
 
-Dados relacionados ao mercado formal de trabalho:
+Microdados do Novo CAGED, disponibilizados pelo Ministério do Trabalho e Emprego.
 
-* admissões
-* desligamentos
-* saldo de empregos
-* setores econômicos
+Foram processadas todas as competências mensais entre:
 
-### SICONFI / Tesouro Nacional
+- 2020
+- 2021
+- 2022
+- 2023
 
-Em etapas posteriores poderão ser utilizados dados relacionados a:
-
-* receitas municipais
-* despesas
-* investimentos públicos
-
-### INEP
-
-Também poderão ser incorporados indicadores relacionados a:
-
-* escolas
-* matrículas
-* estrutura educacional
+Os arquivos originais possuem milhões de registros mensais e foram agregados por município.
 
 ---
 
-## Variável de interesse
+## Pipeline do Novo CAGED
 
-Uma das principais métricas do projeto será o saldo de empregos formais.
+O projeto possui processo automatizado para:
 
-Além do valor absoluto, será criada uma métrica proporcional:
+1. conexão ao servidor de microdados;
+2. download dos arquivos compactados;
+3. extração dos arquivos TXT;
+4. leitura otimizada das colunas necessárias;
+5. filtro do Estado de São Paulo;
+6. identificação de admissões e desligamentos;
+7. agregação por município;
+8. conversão do código CAGED para código IBGE por tabela de correspondência;
+9. reconstrução do painel completo município × mês;
+10. validações matemáticas;
+11. agregação anual.
 
-`saldo de empregos por 1.000 habitantes`
-
-Essa transformação permitirá comparar municípios de tamanhos diferentes de maneira mais adequada.
-
----
-
-## Hipóteses iniciais
-
-Algumas hipóteses que serão investigadas:
-
-**H1:** municípios com maior participação industrial podem apresentar maior geração de empregos formais.
-
-**H2:** municípios com maior PIB per capita não necessariamente apresentam maior geração proporcional de empregos.
-
-**H3:** municípios de tamanho semelhante podem apresentar estruturas econômicas e resultados de emprego bastante diferentes.
-
-Essas hipóteses serão tratadas como pontos de investigação e não como conclusões antecipadas.
-
----
-
-## Critérios de sucesso
-
-O projeto será considerado bem-sucedido se for possível:
-
-* coletar dados públicos de fontes oficiais;
-* construir uma base municipal integrada;
-* documentar e tratar problemas de qualidade dos dados;
-* produzir análises exploratórias relevantes;
-* criar indicadores comparáveis entre municípios;
-* aplicar técnicas estatísticas;
-* desenvolver pelo menos um modelo de Machine Learning;
-* avaliar corretamente o desempenho do modelo;
-* interpretar os resultados;
-* criar visualizações compreensíveis;
-* documentar todo o processo no GitHub.
-
----
-
-# Estrutura inicial do projeto
+O painel mensal final possui:
 
 ```text
-observatorio_municipios_sp/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── src/
-│
-├── outputs/
-│   └── graficos/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-└── main.py
-```
-
----
-
-# Status do projeto
-
-**Fase atual:** CRISP-DM 1 — Business Understanding
-
-Próxima etapa:
-
-**CRISP-DM 2 — Data Understanding**
-
-A próxima fase será iniciada com a exploração das fontes de dados e coleta da lista oficial de municípios paulistas através da API do IBGE.
+645 municípios
+× 12 meses
+× 4 anos
+= 30.960 registros
