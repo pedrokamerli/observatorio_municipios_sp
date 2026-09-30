@@ -4,7 +4,7 @@ Projeto de Ciência de Dados que integra dados públicos do **IBGE** e do **Novo
 
 O resultado é um observatório interativo para consultar indicadores municipais, ver a visão consolidada do estado e comparar municípios.
 
-> Aplicação online: publicar conforme as instruções em [Deploy](#deploy). A URL é adicionada aqui após a publicação, para não apontar para uma aplicação inexistente.
+> Aplicação online: [observatorio.pedromerli.com](https://observatorio.pedromerli.com/observatorio-municipios/)
 
 ## O problema de negócio
 
@@ -139,10 +139,10 @@ Abra `http://localhost:8501`. A base leve necessária ao dashboard, `data/proces
 
 ## Deploy na VPS com Docker
 
-O projeto foi preparado para ficar disponível em:
+O projeto está disponível em:
 
 ```text
-https://pedromerli.com/observatorio-municipios/
+https://observatorio.pedromerli.com/observatorio-municipios/
 ```
 
 O container do Observatório não abre portas públicas. Ele participa da rede Docker compartilhada `portfolio-proxy`, onde o Nginx reverso central encaminha apenas o caminho `/observatorio-municipios/`. Essa arquitetura permite adicionar outros projetos ao mesmo domínio sem conflitos de porta. Caso a VPS já tenha uma rede de proxy, defina `PROXY_NETWORK` no arquivo `.env` local do servidor.
