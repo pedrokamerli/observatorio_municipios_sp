@@ -145,7 +145,7 @@ O projeto foi preparado para ficar disponível em:
 https://pedromerli.com/observatorio-municipios/
 ```
 
-O container do Observatório não abre portas públicas. Ele participa da rede Docker compartilhada `portfolio-proxy`, onde o Nginx reverso central encaminha apenas o caminho `/observatorio-municipios/`. Essa arquitetura permite adicionar outros projetos ao mesmo domínio sem conflitos de porta.
+O container do Observatório não abre portas públicas. Ele participa da rede Docker compartilhada `portfolio-proxy`, onde o Nginx reverso central encaminha apenas o caminho `/observatorio-municipios/`. Essa arquitetura permite adicionar outros projetos ao mesmo domínio sem conflitos de porta. Caso a VPS já tenha uma rede de proxy, defina `PROXY_NETWORK` no arquivo `.env` local do servidor.
 
 Na VPS, uma única vez, crie a rede compartilhada:
 
