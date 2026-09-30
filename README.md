@@ -2,9 +2,13 @@
 
 Projeto de Ciência de Dados que integra dados públicos do **IBGE** e do **Novo CAGED** para analisar a economia e o mercado de trabalho dos **645 municípios do Estado de São Paulo**, entre **2020 e 2023**.
 
-O resultado é um observatório interativo para consultar indicadores municipais, ver a visão consolidada do estado e comparar municípios.
+O resultado é um observatório interativo para consultar indicadores municipais, acompanhar a visão consolidada do estado e comparar cidades.
 
-> Aplicação online: [observatorio.pedromerli.com](https://observatorio.pedromerli.com/observatorio-municipios/)
+## Acesso rápido
+
+- **Dashboard online:** [observatorio.pedromerli.com](https://observatorio.pedromerli.com/observatorio-municipios/)
+- **Código-fonte:** [GitHub](https://github.com/pedrokamerli/observatorio_municipios_sp)
+- **Dados do dashboard:** a base leve `data/processed/base_observatorio_sp.csv` acompanha o repositório.
 
 ## O problema de negócio
 
@@ -12,7 +16,7 @@ Dados econômicos, demográficos e de emprego público costumam estar distribuí
 
 O projeto transforma essas fontes em um painel longitudinal na unidade **município + ano**, pronto para análise e consulta.
 
-## Produto
+## O que é possível explorar
 
 O dashboard Streamlit possui quatro abas:
 
@@ -20,6 +24,8 @@ O dashboard Streamlit possui quatro abas:
 - **Município:** indicadores, rankings, histórico, estrutura econômica e resultado do experimento para qualquer município — Bauru é apenas o exemplo inicial;
 - **Comparar:** comparação de até seis municípios;
 - **Metodologia:** fontes, premissas e limites de interpretação.
+
+Bauru aparece somente como exemplo inicial na consulta. Todos os 645 municípios podem ser selecionados.
 
 ![Visão Estadual](docs/images/dashboard_visao_estadual.png)
 
@@ -109,7 +115,11 @@ Também foi realizada análise setorial para investigar a associação entre a e
 - Resultados de correlação, importância de variáveis e Machine Learning não implicam causalidade.
 - O Modelo 03 é um experimento avaliado no recorte do projeto, não um modelo de previsão em produção.
 
-## Como executar
+## Como baixar e utilizar
+
+Você pode usar o projeto diretamente no [dashboard online](https://observatorio.pedromerli.com/observatorio-municipios/) ou executá-lo localmente.
+
+### Executar localmente
 
 Pré-requisito: Python 3.12 ou superior.
 
@@ -135,21 +145,18 @@ pip install -r requirements.txt
 streamlit run src/dashboard/app.py
 ```
 
-Abra `http://localhost:8501`. A base leve necessária ao dashboard, `data/processed/base_observatorio_sp.csv`, é versionada; os microdados brutos não são incluídos no repositório.
+Abra `http://localhost:8501` no navegador.
 
-## Deploy
+### Como usar o dashboard
 
-O dashboard está publicado em [observatorio.pedromerli.com](https://observatorio.pedromerli.com/observatorio-municipios/).
+1. Em **Visão Estadual**, escolha o ano para ver totais, evolução e destaques dos municípios.
+2. Em **Município**, selecione uma cidade e um ano para consultar indicadores, rankings e série histórica.
+3. Em **Comparar**, selecione entre dois e seis municípios para comparar PIB per capita e indicadores de emprego.
+4. Consulte a aba **Metodologia** antes de interpretar os resultados de modelagem.
 
-Ele é executado em um container Docker na VPS e exposto com HTTPS por Nginx.
+### Sobre os dados
 
-Para atualizar a aplicação na VPS após novos commits:
-
-```bash
-cd /opt/portfolio/observatorio-municipios
-git pull origin main
-docker compose up -d --build
-```
+A base leve necessária ao dashboard já está versionada no repositório. Os microdados brutos do Novo CAGED não são distribuídos aqui por tamanho; para reproduzir todo o pipeline de extração, consulte os scripts em `src/extract/` e `src/transform/` e as fontes oficiais listadas acima.
 
 ## Estrutura do repositório
 
