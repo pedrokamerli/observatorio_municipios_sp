@@ -137,38 +137,16 @@ streamlit run src/dashboard/app.py
 
 Abra `http://localhost:8501`. A base leve necessária ao dashboard, `data/processed/base_observatorio_sp.csv`, é versionada; os microdados brutos não são incluídos no repositório.
 
-## Deploy na VPS com Docker
+## Deploy
 
-O projeto está disponível em:
+O dashboard está publicado em [observatorio.pedromerli.com](https://observatorio.pedromerli.com/observatorio-municipios/).
 
-```text
-https://observatorio.pedromerli.com/observatorio-municipios/
-```
+Ele é executado em um container Docker na VPS e exposto com HTTPS por Nginx.
 
-O container do Observatório não abre portas públicas. Ele participa da rede Docker compartilhada `portfolio-proxy`, onde o Nginx reverso central encaminha apenas o caminho `/observatorio-municipios/`. Essa arquitetura permite adicionar outros projetos ao mesmo domínio sem conflitos de porta. Caso a VPS já tenha uma rede de proxy, defina `PROXY_NETWORK` no arquivo `.env` local do servidor.
-
-Na VPS, uma única vez, crie a rede compartilhada:
+Para atualizar a aplicação na VPS após novos commits:
 
 ```bash
-docker network create portfolio-proxy
-```
-
-Depois, clone ou atualize o repositório e inicie o serviço:
-
-```bash
-git clone https://github.com/pedrokamerli/observatorio_municipios_sp.git
-cd observatorio_municipios_sp
-docker compose up -d --build
-docker compose ps
-```
-
-No container Nginx que atende `pedromerli.com`, inclua o conteúdo de [`deploy/nginx/observatorio-municipios.conf`](deploy/nginx/observatorio-municipios.conf) no bloco HTTPS do domínio. O Nginx também deve pertencer à rede `portfolio-proxy`.
-
-Por fim, recarregue o Nginx. O Streamlit é iniciado com `baseUrlPath=observatorio-municipios`, portanto CSS, JavaScript e WebSocket funcionam corretamente sob o subcaminho.
-
-Para atualizações posteriores:
-
-```bash
+cd /opt/portfolio/observatorio-municipios
 git pull origin main
 docker compose up -d --build
 ```
