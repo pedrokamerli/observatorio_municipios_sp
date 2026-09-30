@@ -1,0 +1,5 @@
+﻿experimento,algoritmo,mae,rmse,r2,target,caracteristica,variacao_mae_vs_anterior_pct
+Modelo 01,Baseline - saldo do ano anterior,469.4852713178295,2864.6082692811783,0.7246928078924733,Saldo absoluto do próximo ano,Modelo inicial,
+Modelo 02,Ridge,370.1466506031055,2075.78639443348,0.8554385829718436,Variação do saldo,Feature engineering temporal,-21.159049449173082
+Modelo 03,Random Forest,360.65979617385074,1347.2724311906225,0.9391027164342146,Variação do saldo por 1.000 habitantes,Normalização populacional,-2.5629988583706464
+Modelo 04,Random Forest,400.2256442671052,2040.6657322572828,0.860288930300956,Variação do saldo por 1.000 habitantes,Estrutura econômica defasada,10.970407157381734

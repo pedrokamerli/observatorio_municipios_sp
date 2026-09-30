@@ -1,0 +1,30 @@
+OBSERVATÓRIO DOS MUNICÍPIOS PAULISTAS
+COMPARAÇÃO FINAL DA MODELAGEM
+
+Melhor resultado pelo critério de MAE:
+Experimento: Modelo 03
+Algoritmo: Random Forest
+MAE: 360.66
+RMSE: 1347.27
+R²: 0.9391
+
+Redução do MAE em relação ao baseline original: 23.18%
+
+Evolução dos experimentos:
+
+Modelo 01
+Previsão direta do saldo
+Baseline superou os modelos supervisionados
+
+Modelo 02
+Feature engineering temporal e previsão da variação
+Modelos supervisionados superaram o baseline
+
+Modelo 03
+Normalização por população
+Redução dos erros absolutos e extremos
+
+Modelo 04
+Inclusão de estrutura econômica defasada
+Features setoriais acrescentaram informação, mas pioraram a previsão
+

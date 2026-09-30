@@ -19,6 +19,13 @@ data/raw/*
 # Dados processados
 data/processed/*
 !data/processed/.gitkeep
+# Base leve, necessária para que o Streamlit Community Cloud execute o dashboard.
+!data/processed/base_observatorio_sp.csv
+
+# Capturas versionadas e exibidas no README.
+!docs/
+!docs/images/
+!docs/images/*.png
 
 # Sistema
 .DS_Store

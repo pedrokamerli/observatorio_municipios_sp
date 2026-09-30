@@ -1,0 +1,5 @@
+﻿experimento,mudanca,resultado
+Modelo 01,Previsão direta do saldo,Baseline superou os modelos supervisionados
+Modelo 02,Feature engineering temporal e previsão da variação,Modelos supervisionados superaram o baseline
+Modelo 03,Normalização por população,Redução dos erros absolutos e extremos
+Modelo 04,Inclusão de estrutura econômica defasada,"Features setoriais acrescentaram informação, mas pioraram a previsão"
