@@ -111,7 +111,7 @@ Também foi realizada análise setorial para investigar a associação entre a e
 
 ## Como executar
 
-Pré-requisito: Python 3.11 ou superior.
+Pré-requisito: Python 3.12 ou superior.
 
 ```bash
 git clone https://github.com/pedrokamerli/observatorio_municipios_sp.git
