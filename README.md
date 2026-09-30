@@ -137,16 +137,41 @@ streamlit run src/dashboard/app.py
 
 Abra `http://localhost:8501`. A base leve necessária ao dashboard, `data/processed/base_observatorio_sp.csv`, é versionada; os microdados brutos não são incluídos no repositório.
 
-## Deploy
+## Deploy na VPS com Docker
 
-Para publicar no Streamlit Community Cloud:
+O projeto foi preparado para ficar disponível em:
 
-1. envie as alterações para o GitHub;
-2. em [share.streamlit.io](https://share.streamlit.io/), selecione o repositório;
-3. informe `src/dashboard/app.py` como arquivo principal;
-4. após a publicação, substitua o aviso do topo deste README pela URL gerada.
+```text
+https://pedromerli.com/observatorio-municipios/
+```
 
-Em uma VPS, instale as dependências e execute `streamlit run src/dashboard/app.py --server.address 0.0.0.0`; use um proxy reverso com HTTPS para expor o serviço.
+O container do Observatório não abre portas públicas. Ele participa da rede Docker compartilhada `portfolio-proxy`, onde o Nginx reverso central encaminha apenas o caminho `/observatorio-municipios/`. Essa arquitetura permite adicionar outros projetos ao mesmo domínio sem conflitos de porta.
+
+Na VPS, uma única vez, crie a rede compartilhada:
+
+```bash
+docker network create portfolio-proxy
+```
+
+Depois, clone ou atualize o repositório e inicie o serviço:
+
+```bash
+git clone https://github.com/pedrokamerli/observatorio_municipios_sp.git
+cd observatorio_municipios_sp
+docker compose up -d --build
+docker compose ps
+```
+
+No container Nginx que atende `pedromerli.com`, inclua o conteúdo de [`deploy/nginx/observatorio-municipios.conf`](deploy/nginx/observatorio-municipios.conf) no bloco HTTPS do domínio. O Nginx também deve pertencer à rede `portfolio-proxy`.
+
+Por fim, recarregue o Nginx. O Streamlit é iniciado com `baseUrlPath=observatorio-municipios`, portanto CSS, JavaScript e WebSocket funcionam corretamente sob o subcaminho.
+
+Para atualizações posteriores:
+
+```bash
+git pull origin main
+docker compose up -d --build
+```
 
 ## Estrutura do repositório
 

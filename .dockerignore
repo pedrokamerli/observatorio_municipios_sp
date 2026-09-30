@@ -1,0 +1,15 @@
+.git
+.idea
+.venv
+venv
+__pycache__
+*.pyc
+.env
+data/raw
+data/processed/*.csv
+!data/processed/base_observatorio_sp.csv
+outputs
+docs
+Dockerfile
+docker-compose.yml
+README.md

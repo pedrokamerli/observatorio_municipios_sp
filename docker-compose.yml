@@ -1,0 +1,16 @@
+services:
+  observatorio-municipios:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: observatorio-municipios
+    restart: unless-stopped
+    expose:
+      - "8501"
+    networks:
+      - portfolio-proxy
+
+networks:
+  # Rede compartilhada com o Nginx reverso dos projetos de portfólio.
+  portfolio-proxy:
+    external: true
